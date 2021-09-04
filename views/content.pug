@@ -1,0 +1,44 @@
+doctype html
+head
+  title Food Blog
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  script(src='https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js')
+  link(rel='preconnect' href='https://fonts.gstatic.com')
+  link(href='https://fonts.googleapis.com/css2?family=Sacramento&display=swap' rel='stylesheet')
+  link(rel='stylesheet' href='stylesheets/style.css')
+aside#leftside
+aside#rightside
+#container
+  #component1
+    mycomponent1
+  // nav
+  include ./nav.pug
+  main
+    aside#photos
+      img(src='images/chili.jpg' alt='White Chicken Chili' width='180')
+    #component2
+      mycomponent2
+    section#blogposts
+      ul
+        li.post(v-for='(post,index) in posts' :key='index' style='list-style: none;')
+          img(v-bind:src='post.imgPath' style='width: 40px; cursor: pointer;' @click='post.infobox= !post.infobox;')
+          |                     {{ post.author }} &mdash;
+          |                     {{ post.date }}
+          |                     {{ post.reply }}
+          div(v-html='post.message')
+      .modal(v-for='post in posts' v-show='post.infobox')
+        h1 {{ post.author }}
+        .modalInfo
+          span.subtitle Foodie Level:
+          span.modalDisc {{ post.foodieLevel }}
+          br
+          span.subtitle Bio:
+          span.modalDisc {{ post.bio }}
+        button.close-button(type='button' @click='post.infobox = false;') Close
+  include ./footer.pug 
+
+script(src='javascripts/vue.js')
+script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js')
+script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js')
+script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js')
